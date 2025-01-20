@@ -1,7 +1,7 @@
 package com.example.hotels.data.api
 
-import com.example.hotels.data.dto.HotelDetailsDto
-import com.example.hotels.data.dto.HotelInfoDto
+import com.example.hotels.data.model.dto.HotelDetailsDto
+import com.example.hotels.data.model.dto.HotelInfoDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

@@ -1,4 +1,4 @@
-package com.example.hotels.data.dto
+package com.example.hotels.data.model.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -10,7 +10,7 @@ data class HotelDetailsDto(
     @SerialName("address") val address: String,
     @SerialName("stars") val stars: Float,
     @SerialName("distance") val distance: Float,
-    @SerialName("image") val image: String?,
+    @SerialName("image") val imageId: String?,
     @SerialName("suites_availability") val suitesAvailability: String,
     @SerialName("lat") val latitude: Double,
     @SerialName("lon") val longitude: Double
