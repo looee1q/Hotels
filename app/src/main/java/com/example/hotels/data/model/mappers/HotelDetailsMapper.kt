@@ -4,8 +4,9 @@ import com.example.hotels.data.api.HttpRoutes
 import com.example.hotels.data.model.dto.HotelDetailsDto
 import com.example.hotels.data.utils.ParsingUtils
 import com.example.hotels.domain.models.HotelDetails
+import javax.inject.Inject
 
-class HotelDetailsMapper : Mapper<HotelDetailsDto, HotelDetails> {
+class HotelDetailsMapper @Inject constructor() : Mapper<HotelDetailsDto, HotelDetails> {
 
     override fun map(input: HotelDetailsDto): HotelDetails {
         return HotelDetails(
