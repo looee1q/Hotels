@@ -3,8 +3,9 @@ package com.example.hotels.domain.usecases.impl
 import com.example.hotels.domain.models.FilterType
 import com.example.hotels.domain.models.HotelInfo
 import com.example.hotels.domain.usecases.FilterHotelsUseCase
+import javax.inject.Inject
 
-class FilterHotelsUseCaseImpl : FilterHotelsUseCase {
+class FilterHotelsUseCaseImpl @Inject constructor() : FilterHotelsUseCase {
 
     override operator fun invoke(
         hotels: List<HotelInfo>,

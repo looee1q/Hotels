@@ -5,8 +5,9 @@ import com.example.hotels.domain.models.ApiResult
 import com.example.hotels.domain.models.HotelDetails
 import com.example.hotels.domain.repository.HotelsRepository
 import com.example.hotels.domain.usecases.GetHotelDetailsByIdUseCase
+import javax.inject.Inject
 
-class GetHotelDetailsByIdUseCaseImpl(
+class GetHotelDetailsByIdUseCaseImpl @Inject constructor(
     private val hotelsRepository: HotelsRepository
 ) : GetHotelDetailsByIdUseCase {
 

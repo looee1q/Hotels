@@ -11,8 +11,9 @@ import com.example.hotels.domain.models.ApiResult
 import com.example.hotels.domain.models.HotelDetails
 import com.example.hotels.domain.models.HotelInfo
 import com.example.hotels.domain.repository.HotelsRepository
+import javax.inject.Inject
 
-class HotelsRepositoryImpl(
+class HotelsRepositoryImpl @Inject constructor(
     private val hotelsApi: HotelsApi,
     private val connectivityManager: ConnectivityManager,
     private val hotelInfoMapper: Mapper<HotelInfoDto, HotelInfo>,
