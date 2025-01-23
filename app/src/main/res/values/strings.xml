@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Hotels</string>
+    <string name="meters_from_center">%1$s meters from center</string>
+    <string name="no_suites_available">No Suites Available</string>
+    <string name="sort">Sort</string>
+    <string name="by_distance">By Distance</string>
+    <string name="by_suites_available">By Suites Available</string>
+    <string name="hotels_app">Hotels App</string>
+    <string name="nothing_found">Nothing Found</string>
+    <string name="retry">Retry</string>
+    <string name="no_connection">No Connection</string>
+    <string name="unknown_error">Unknown Error</string>
+    <plurals name="suites_available">
+        <item quantity="one">%1$s Suite Available</item>
+        <item quantity="other">%1$s Suites Available</item>
+    </plurals>
 </resources>
