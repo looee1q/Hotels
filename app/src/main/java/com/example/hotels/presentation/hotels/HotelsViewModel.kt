@@ -29,6 +29,23 @@ class HotelsViewModel @Inject constructor(
         getHotels()
     }
 
+    fun sortHotels(filterType: FilterType) {
+        val currentScreenState = _screenState.value
+        if (currentScreenState is HotelsScreenState.Loaded) {
+            val sortedHotels = filterHotelsUseCase(
+                hotels = currentScreenState.hotels,
+                filterType = filterType
+            )
+            _screenState.update { HotelsScreenState.Loaded(sortedHotels) }
+        }
+    }
+
+    fun retryGetHotels() {
+        if (screenState.value !is HotelsScreenState.Loading) {
+            getHotels()
+        }
+    }
+
     private fun getHotels() {
         _screenState.update { HotelsScreenState.Loading }
         viewModelScope.launch {
@@ -55,17 +72,6 @@ class HotelsViewModel @Inject constructor(
                     }
                 }
             }
-        }
-    }
-
-    fun sortHotels(filterType: FilterType) {
-        val currentScreenState = _screenState.value
-        if (currentScreenState is HotelsScreenState.Loaded) {
-            val sortedHotels = filterHotelsUseCase(
-                hotels = currentScreenState.hotels,
-                filterType = filterType
-            )
-            _screenState.update { HotelsScreenState.Loaded(sortedHotels) }
         }
     }
 }
