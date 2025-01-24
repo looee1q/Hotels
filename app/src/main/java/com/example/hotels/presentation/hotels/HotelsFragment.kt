@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.compose.runtime.getValue
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.hotels.databinding.FragmentHotelsBinding
 import com.example.hotels.presentation.bindingfragment.BindingFragment
 import com.example.hotels.presentation.hotels.ui.HotelsScreen
+import com.example.hotels.presentation.navigation.HotelDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,10 +32,14 @@ class HotelsFragment : BindingFragment<FragmentHotelsBinding>() {
             val screenState by viewModel.screenState.collectAsStateWithLifecycle()
             HotelsScreen(
                 hotelsScreenState = screenState,
-                onHotelClickListener = { },
+                onHotelClickListener = { navigateToHotelDetails(hotelId = it.id) },
                 onSortingTypeClickListener = { viewModel.sortHotels(it) },
                 onRetryButtonClickListener = { viewModel.retryGetHotels() }
             )
         }
+    }
+
+    private fun navigateToHotelDetails(hotelId: Int) {
+        findNavController().navigate(route = HotelDetails(id = hotelId))
     }
 }
