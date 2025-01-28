@@ -10,6 +10,8 @@
     <string name="retry">Retry</string>
     <string name="no_connection">No Connection</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="the_image_is_currently_unavailable">The Image is currently unavailable</string>
+    <string name="no_info_about_rating">No Info about Rating</string>
     <plurals name="suites_available">
         <item quantity="one">%1$s Suite Available</item>
         <item quantity="other">%1$s Suites Available</item>
