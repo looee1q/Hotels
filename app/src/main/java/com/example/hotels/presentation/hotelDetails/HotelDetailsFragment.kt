@@ -1,5 +1,8 @@
 package com.example.hotels.presentation.hotelDetails
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -58,10 +61,11 @@ class HotelDetailsFragment : BindingFragment<FragmentHotelDetailsBinding>() {
         when (screenState) {
             HotelDetailsScreenState.Initial -> {}
             HotelDetailsScreenState.Loading -> {
-
+                binding.contentContainer.isVisible = false
             }
 
             is HotelDetailsScreenState.Loaded -> {
+                binding.contentContainer.isVisible = true
                 val hotel = screenState.hotelDetails
                 Log.d(
                     "HotelDetailsFragment",
@@ -72,14 +76,24 @@ class HotelDetailsFragment : BindingFragment<FragmentHotelDetailsBinding>() {
                 lifecycleScope.launch {
                     loadImage(hotel.imageUrl)
                 }
+                binding.availableSuitesValue.text = hotel.suitesAvailability.size.toString()
+                binding.addressValue.text = hotel.address
+                binding.viewOnMapButton.setOnClickListener {
+                    sendIntentToMapApps(
+                        latitude = hotel.latitude,
+                        longitude = hotel.longitude
+                    )
+                }
             }
 
 
             HotelDetailsScreenState.NoConnectionError -> {
+                binding.contentContainer.isVisible = false
 
             }
 
             HotelDetailsScreenState.UnknownError -> {
+                binding.contentContainer.isVisible = false
 
             }
         }
@@ -151,5 +165,16 @@ class HotelDetailsFragment : BindingFragment<FragmentHotelDetailsBinding>() {
     private fun onImageErrorResult() {
         binding.hotelImage.isVisible = false
         binding.unavailableImageContainer.isVisible = true
+    }
+
+    private fun sendIntentToMapApps(latitude: Double, longitude: Double) {
+        val mapIntent = Uri.parse("geo:$latitude,$longitude").let { location ->
+            Intent(Intent.ACTION_VIEW, location)
+        }
+        try {
+            startActivity(mapIntent)
+        } catch (exception: ActivityNotFoundException) {
+            Log.e("Sending Intent Failed", "${exception.message}", exception)
+        }
     }
 }
