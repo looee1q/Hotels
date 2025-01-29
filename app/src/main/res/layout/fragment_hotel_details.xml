@@ -1,16 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hotel Details"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/arrow_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@null"
+            android:src="@drawable/abc_ic_ab_back_material"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:lineHeight="28sp"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            tools:text="Best Western President Hotel at Times Square" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/shadow_imitation_background" />
+
+    <ScrollView
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/no_info_about_rating"
+                    style="@android:style/TextAppearance.DeviceDefault.SearchResult.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_info_about_rating"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/hotel_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="24dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/rating_container"
+                app:layout_constraintWidth_max="480dp"
+                tools:src="@android:drawable/ic_menu_report_image" />
+
+            <FrameLayout
+                android:id="@+id/image_progress_bar_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="24dp"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/rating_container"
+                app:layout_constraintWidth_max="480dp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/image_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:indicatorSize="24dp"
+                    app:trackThickness="2dp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/unavailable_image_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/rating_container"
+                app:layout_constraintWidth_max="480dp">
+
+                <ImageView
+                    android:id="@+id/unavailable_image_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/ic_menu_report_image" />
+
+                <TextView
+                    android:id="@+id/unavailable_image_text"
+                    style="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/the_image_is_currently_unavailable" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/under_image_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="hotel_image, unavailable_image_container" />
+
+            <TextView
+                android:id="@+id/available_suites_title"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/available_suites"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/under_image_barrier" />
+
+            <TextView
+                android:id="@+id/available_suites_value"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintTop_toBottomOf="@id/under_image_barrier"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/address_title"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/address"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/available_suites_title" />
+
+            <TextView
+                android:id="@+id/address_value"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="2"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/address_title"
+                app:layout_constraintTop_toBottomOf="@id/available_suites_value"
+                tools:text="250 West 77th Street, Manhattan, United States" />
+
+            <FrameLayout
+                android:id="@+id/view_on_map_button_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/right_boundary"
+                app:layout_constraintHeight_min="48dp"
+                app:layout_constraintStart_toStartOf="@id/left_boundary"
+                app:layout_constraintTop_toBottomOf="@id/address_value">
+
+                <Button
+                    android:id="@+id/view_on_map_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/view_on_map"
+                    app:cornerRadius="24dp" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/left_boundary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_boundary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/main_progress_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/main_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:indicatorSize="48dp"
+            app:trackThickness="4dp" />
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/error_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/error_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:layout_constraintBottom_toTopOf="@id/error_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:src="@drawable/baseline_signal_wifi_bad_24" />
+
+        <TextView
+            android:id="@+id/error_description"
+            style="@android:style/TextAppearance.Material.Display1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toTopOf="@id/retry_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_icon"
+            tools:text="@string/no_connection" />
+
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="24dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/retry"
+            app:cornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

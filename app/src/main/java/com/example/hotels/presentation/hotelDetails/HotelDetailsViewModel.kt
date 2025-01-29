@@ -28,6 +28,16 @@ class HotelDetailsViewModel @Inject constructor(
 
     private val hotelId = savedStateHandle.toRoute<HotelDetails>().id
 
+    init {
+        getHotelDetails()
+    }
+
+    fun retryGetHotelDetails() {
+        if (screenState.value !is HotelDetailsScreenState.Loading) {
+            getHotelDetails()
+        }
+    }
+
     private fun getHotelDetails() {
         _screenState.update { HotelDetailsScreenState.Loading }
         viewModelScope.launch {
