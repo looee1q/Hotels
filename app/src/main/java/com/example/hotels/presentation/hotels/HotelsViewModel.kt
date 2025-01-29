@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotels.domain.models.ApiError
 import com.example.hotels.domain.models.ApiResult
-import com.example.hotels.domain.models.FilterType
-import com.example.hotels.domain.usecases.FilterHotelsUseCase
+import com.example.hotels.domain.models.SortingType
+import com.example.hotels.domain.usecases.SortHotelsUseCase
 import com.example.hotels.domain.usecases.GetHotelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HotelsViewModel @Inject constructor(
     private val getHotelsUseCase: GetHotelsUseCase,
-    private val filterHotelsUseCase: FilterHotelsUseCase
+    private val sortHotelsUseCase: SortHotelsUseCase
 ) : ViewModel() {
 
     private val _screenState: MutableStateFlow<HotelsScreenState> = MutableStateFlow(
@@ -29,12 +29,12 @@ class HotelsViewModel @Inject constructor(
         getHotels()
     }
 
-    fun sortHotels(filterType: FilterType) {
+    fun sortHotels(sortingType: SortingType) {
         val currentScreenState = _screenState.value
         if (currentScreenState is HotelsScreenState.Loaded) {
-            val sortedHotels = filterHotelsUseCase(
+            val sortedHotels = sortHotelsUseCase(
                 hotels = currentScreenState.hotels,
-                filterType = filterType
+                sortingType = sortingType
             )
             _screenState.update { HotelsScreenState.Loaded(sortedHotels) }
         }

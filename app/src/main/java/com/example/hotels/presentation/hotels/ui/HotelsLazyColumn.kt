@@ -13,24 +13,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.StarOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.hotels.R
 import com.example.hotels.domain.models.HotelInfo
-import com.example.hotels.ui.theme.Typography
 
 @Composable
 fun HotelsList(
@@ -72,11 +70,11 @@ private fun HotelItem(
         ) {
             Text(
                 text = hotelInfo.name,
-                style = Typography.titleLarge
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = hotelInfo.address,
-                style = Typography.bodyLarge.copy(color = Color.Gray)
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Gray)
             )
             HotelStars(
                 modifier = Modifier.height(20.dp),
@@ -84,7 +82,7 @@ private fun HotelItem(
             )
             Text(
                 text = stringResource(R.string.meters_from_center, hotelInfo.distance),
-                style = Typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium
             )
             Text(
                 text = if (hotelInfo.suitesAvailability.isEmpty()) {
@@ -96,7 +94,7 @@ private fun HotelItem(
                         hotelInfo.suitesAvailability.size
                     )
                 },
-                style = Typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -119,14 +117,14 @@ private fun HotelStars(
         repeat(hotelStars) {
             Icon(
                 modifier = Modifier.size(starsSize),
-                imageVector = Icons.Filled.Star,
+                painter = painterResource(R.drawable.baseline_star_24),
                 contentDescription = null
             )
         }
         repeat(maxStars - hotelStars) {
             Icon(
                 modifier = Modifier.size(starsSize),
-                imageVector = Icons.Filled.StarOutline,
+                painter = painterResource(R.drawable.baseline_star_outline_24),
                 contentDescription = null,
             )
         }
