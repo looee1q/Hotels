@@ -8,10 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ErrorOutline
-import androidx.compose.material.icons.filled.SearchOff
-import androidx.compose.material.icons.filled.SignalWifiConnectedNoInternet4
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -20,12 +16,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hotels.R
-import com.example.hotels.domain.models.SortingType
 import com.example.hotels.domain.models.HotelInfo
+import com.example.hotels.domain.models.SortingType
 import com.example.hotels.presentation.hotels.HotelsScreenState
 
 @Composable
@@ -105,7 +102,7 @@ private fun EmptyListState(
 ) {
     NoDataState(
         onRetryButtonClickListener = { onRetryButtonClickListener() },
-        imageVectorIcon = Icons.Filled.SearchOff,
+        painter = painterResource(R.drawable.baseline_search_off_24),
         stateDescription = stringResource(R.string.nothing_found)
     )
 }
@@ -116,7 +113,7 @@ private fun NoConnectionErrorState(
 ) {
     NoDataState(
         onRetryButtonClickListener = { onRetryButtonClickListener() },
-        imageVectorIcon = Icons.Filled.SignalWifiConnectedNoInternet4,
+        painter = painterResource(R.drawable.baseline_signal_wifi_bad_24),
         stateDescription = stringResource(R.string.no_connection)
     )
 }
@@ -127,7 +124,7 @@ private fun UnknownErrorState(
 ) {
     NoDataState(
         onRetryButtonClickListener = { onRetryButtonClickListener() },
-        imageVectorIcon = Icons.Filled.ErrorOutline,
+        painter = painterResource(R.drawable.baseline_error_outline_24),
         stateDescription = stringResource(R.string.unknown_error)
     )
 }
@@ -135,7 +132,7 @@ private fun UnknownErrorState(
 @Composable
 private fun NoDataState(
     onRetryButtonClickListener: () -> Unit,
-    imageVectorIcon: ImageVector,
+    painter: Painter,
     stateDescription: String,
 ) {
     Box(
@@ -148,7 +145,7 @@ private fun NoDataState(
         ) {
             Icon(
                 modifier = Modifier.size(64.dp),
-                imageVector = imageVectorIcon,
+                painter = painter,
                 contentDescription = stateDescription
             )
             Spacer(modifier = Modifier.height(24.dp))

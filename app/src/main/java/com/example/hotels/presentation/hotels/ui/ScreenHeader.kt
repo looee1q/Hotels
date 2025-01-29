@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.Hotel
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -29,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -63,7 +61,7 @@ fun Header(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Filled.Hotel,
+                painter = painterResource(R.drawable.baseline_hotel_24),
                 contentDescription = null
             )
             Text(
@@ -122,7 +120,7 @@ private fun SortingDropdownMenu(
                     )
                 )
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Sort,
+                    painter = painterResource(R.drawable.baseline_sort_24),
                     contentDescription = null,
                     tint = if (selectedOption != null) Color.Cyan else LocalContentColor.current
                 )
