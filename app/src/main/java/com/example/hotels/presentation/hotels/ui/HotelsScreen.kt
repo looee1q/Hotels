@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.SignalWifiConnectedNoInternet4
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +27,6 @@ import com.example.hotels.R
 import com.example.hotels.domain.models.SortingType
 import com.example.hotels.domain.models.HotelInfo
 import com.example.hotels.presentation.hotels.HotelsScreenState
-import com.example.hotels.ui.theme.Typography
 
 @Composable
 fun HotelsScreen(
@@ -154,7 +154,7 @@ private fun NoDataState(
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = stateDescription,
-                style = Typography.displaySmall
+                style = MaterialTheme.typography.displaySmall
             )
         }
         Button(
@@ -166,7 +166,7 @@ private fun NoDataState(
         ) {
             Text(
                 text = stringResource(R.string.retry),
-                style = Typography.titleLarge
+                style = MaterialTheme.typography.titleLarge
             )
         }
     }

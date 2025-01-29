@@ -17,11 +17,12 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import com.example.hotels.R
 import com.example.hotels.domain.models.SortingType
 import com.example.hotels.presentation.utils.mapToString
-import com.example.hotels.ui.theme.Typography
 
 @Composable
 fun HeaderWithSorting(
@@ -71,7 +71,7 @@ fun Header(
                     .padding(horizontal = 16.dp)
                     .weight(1f),
                 text = stringResource(R.string.hotels_app),
-                style = Typography.titleLarge
+                style = MaterialTheme.typography.titleLarge
             )
             content?.invoke()
         }
@@ -104,8 +104,8 @@ private fun SortingDropdownMenu(
     modifier: Modifier = Modifier,
     onSortingTypeClickListener: (SortingType) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf<SortingType?>(null) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    var selectedOption by rememberSaveable { mutableStateOf<SortingType?>(null) }
     Box(modifier = modifier) {
         Button(
             onClick = { expanded = !expanded },
@@ -117,7 +117,7 @@ private fun SortingDropdownMenu(
             ) {
                 Text(
                     text = stringResource(R.string.sort),
-                    style = Typography.titleMedium.copy(
+                    style = MaterialTheme.typography.titleMedium.copy(
                         color = if (selectedOption != null) Color.Cyan else Color.Unspecified
                     )
                 )
@@ -141,7 +141,7 @@ private fun SortingDropdownMenu(
                         text = {
                             Text(
                                 text = it.mapToString(context = LocalContext.current),
-                                style = Typography.bodyMedium.copy(color = dropdownMenuItemColor)
+                                style = MaterialTheme.typography.bodyMedium.copy(color = dropdownMenuItemColor)
                             )
                         },
                         onClick = {
