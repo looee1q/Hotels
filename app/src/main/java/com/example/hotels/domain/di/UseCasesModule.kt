@@ -1,9 +1,9 @@
 package com.example.hotels.domain.di
 
-import com.example.hotels.domain.usecases.FilterHotelsUseCase
+import com.example.hotels.domain.usecases.SortHotelsUseCase
 import com.example.hotels.domain.usecases.GetHotelDetailsByIdUseCase
 import com.example.hotels.domain.usecases.GetHotelsUseCase
-import com.example.hotels.domain.usecases.impl.FilterHotelsUseCaseImpl
+import com.example.hotels.domain.usecases.impl.SortHotelsUseCaseImpl
 import com.example.hotels.domain.usecases.impl.GetHotelDetailsByIdUseCaseImpl
 import com.example.hotels.domain.usecases.impl.GetHotelsUseCaseImpl
 import dagger.Binds
@@ -18,7 +18,7 @@ abstract class UseCasesModule {
 
     @Binds
     @Singleton
-    abstract fun bindsFilterHotelsUseCase(impl: FilterHotelsUseCaseImpl): FilterHotelsUseCase
+    abstract fun bindsSortHotelsUseCase(impl: SortHotelsUseCaseImpl): SortHotelsUseCase
 
     @Binds
     @Singleton

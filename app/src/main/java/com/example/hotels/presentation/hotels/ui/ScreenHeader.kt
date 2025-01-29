@@ -32,14 +32,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.hotels.R
-import com.example.hotels.domain.models.FilterType
+import com.example.hotels.domain.models.SortingType
 import com.example.hotels.presentation.utils.mapToString
 import com.example.hotels.ui.theme.Typography
 
 @Composable
 fun HeaderWithSorting(
     modifier: Modifier = Modifier,
-    onSortingTypeClickListener: (FilterType) -> Unit
+    onSortingTypeClickListener: (SortingType) -> Unit
 ) {
     Header(
         modifier = modifier
@@ -102,10 +102,10 @@ private fun ShadowImitation(
 @Composable
 private fun SortingDropdownMenu(
     modifier: Modifier = Modifier,
-    onSortingTypeClickListener: (FilterType) -> Unit
+    onSortingTypeClickListener: (SortingType) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf<FilterType?>(null) }
+    var selectedOption by remember { mutableStateOf<SortingType?>(null) }
     Box(modifier = modifier) {
         Button(
             onClick = { expanded = !expanded },
@@ -131,7 +131,7 @@ private fun SortingDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                FilterType.entries.forEach {
+                SortingType.entries.forEach {
                     val dropdownMenuItemColor = if (selectedOption == it) {
                         Color.Blue
                     } else {

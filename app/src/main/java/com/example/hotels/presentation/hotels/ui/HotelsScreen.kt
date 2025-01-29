@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hotels.R
-import com.example.hotels.domain.models.FilterType
+import com.example.hotels.domain.models.SortingType
 import com.example.hotels.domain.models.HotelInfo
 import com.example.hotels.presentation.hotels.HotelsScreenState
 import com.example.hotels.ui.theme.Typography
@@ -31,7 +31,7 @@ import com.example.hotels.ui.theme.Typography
 @Composable
 fun HotelsScreen(
     hotelsScreenState: HotelsScreenState,
-    onSortingTypeClickListener: (FilterType) -> Unit,
+    onSortingTypeClickListener: (SortingType) -> Unit,
     onHotelClickListener: (HotelInfo) -> Unit,
     onRetryButtonClickListener: () -> Unit = { }
 ) {
@@ -83,7 +83,7 @@ private fun LoadingState() {
 @Composable
 private fun LoadedState(
     hotels: List<HotelInfo>,
-    onSortingTypeClickListener: (FilterType) -> Unit,
+    onSortingTypeClickListener: (SortingType) -> Unit,
     onHotelClickListener: (HotelInfo) -> Unit
 ) {
     Column(
