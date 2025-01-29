@@ -32,6 +32,12 @@ class HotelDetailsViewModel @Inject constructor(
         getHotelDetails()
     }
 
+    fun retryGetHotelDetails() {
+        if (screenState.value !is HotelDetailsScreenState.Loading) {
+            getHotelDetails()
+        }
+    }
+
     private fun getHotelDetails() {
         _screenState.update { HotelDetailsScreenState.Loading }
         viewModelScope.launch {

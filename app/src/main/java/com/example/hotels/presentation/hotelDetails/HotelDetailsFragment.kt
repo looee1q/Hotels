@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +24,7 @@ import coil3.size.Scale
 import coil3.transform.RoundedCornersTransformation
 import com.example.hotels.R
 import com.example.hotels.databinding.FragmentHotelDetailsBinding
+import com.example.hotels.domain.models.HotelDetails
 import com.example.hotels.presentation.bindingfragment.BindingFragment
 import com.example.hotels.presentation.utils.ImageTooSmallException
 import com.example.hotels.presentation.utils.ImageUtils
@@ -60,42 +62,63 @@ class HotelDetailsFragment : BindingFragment<FragmentHotelDetailsBinding>() {
     private fun renderScreenState(screenState: HotelDetailsScreenState) {
         when (screenState) {
             HotelDetailsScreenState.Initial -> {}
-            HotelDetailsScreenState.Loading -> {
-                binding.contentContainer.isVisible = false
-            }
 
-            is HotelDetailsScreenState.Loaded -> {
-                binding.contentContainer.isVisible = true
-                val hotel = screenState.hotelDetails
-                Log.d(
-                    "HotelDetailsFragment",
-                    "state is HotelDetailsScreenState.Loaded. Hotel is $hotel"
-                )
-                binding.hotelName.text = hotel.name
-                showRating(hotel.stars.toInt())
-                lifecycleScope.launch {
-                    loadImage(hotel.imageUrl)
-                }
-                binding.availableSuitesValue.text = hotel.suitesAvailability.size.toString()
-                binding.addressValue.text = hotel.address
-                binding.viewOnMapButton.setOnClickListener {
-                    sendIntentToMapApps(
-                        latitude = hotel.latitude,
-                        longitude = hotel.longitude
-                    )
-                }
-            }
+            HotelDetailsScreenState.Loading -> renderLoadingState()
 
+            is HotelDetailsScreenState.Loaded -> renderLoadedState(screenState.hotelDetails)
 
             HotelDetailsScreenState.NoConnectionError -> {
-                binding.contentContainer.isVisible = false
-
+                renderErrorState(
+                    drawableErrorId = R.drawable.baseline_signal_wifi_bad_24,
+                    errorDescription = getString(R.string.no_connection)
+                )
             }
 
             HotelDetailsScreenState.UnknownError -> {
-                binding.contentContainer.isVisible = false
-
+                renderErrorState(
+                    drawableErrorId = R.drawable.baseline_error_outline_24,
+                    errorDescription = getString(R.string.unknown_error)
+                )
             }
+        }
+    }
+
+    private fun renderLoadingState() {
+        binding.mainProgressBarContainer.isVisible = true
+        binding.contentContainer.isVisible = false
+        binding.errorContainer.isVisible = false
+    }
+
+    private fun renderLoadedState(hotel: HotelDetails) {
+        binding.mainProgressBarContainer.isVisible = false
+        binding.contentContainer.isVisible = true
+        binding.errorContainer.isVisible = false
+        binding.hotelName.text = hotel.name
+        showRating(hotel.stars.toInt())
+        lifecycleScope.launch {
+            loadImage(hotel.imageUrl)
+        }
+        binding.availableSuitesValue.text = hotel.suitesAvailability.size.toString()
+        binding.addressValue.text = hotel.address
+        binding.viewOnMapButton.setOnClickListener {
+            sendIntentToMapApps(
+                latitude = hotel.latitude,
+                longitude = hotel.longitude
+            )
+        }
+    }
+
+    private fun renderErrorState(
+        @DrawableRes drawableErrorId: Int,
+        errorDescription: String
+    ) {
+        binding.mainProgressBarContainer.isVisible = false
+        binding.contentContainer.isVisible = false
+        binding.errorContainer.isVisible = true
+        binding.errorIcon.setImageResource(drawableErrorId)
+        binding.errorDescription.text = errorDescription
+        binding.retryButton.setOnClickListener {
+            viewModel.retryGetHotelDetails()
         }
     }
 
@@ -130,7 +153,9 @@ class HotelDetailsFragment : BindingFragment<FragmentHotelDetailsBinding>() {
                 onSuccess = { _, _ -> binding.imageProgressBar.isVisible = false }
             )
             .build()
+
         val imageLoader = ImageLoader(requireContext())
+
         when (val result = imageLoader.execute(request)) {
             is SuccessResult -> {
                 onImageSuccessResult(result)
